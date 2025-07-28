@@ -11,6 +11,7 @@ constexpr float min_temperature = 95.0f;
 constexpr int max_pulse_rate = 100;
 constexpr int min_pulse_rate = 60;
 constexpr int min_spo2_level = 90;
+constexpr int max_spo2_level = 200;//200 is user created upper-bound for reference 
 
 // Blinking alert duration
 constexpr int alertcount = 6;
@@ -26,7 +27,7 @@ void DisplayAlert(){
 }
 
 // Function to check a single vital parameter
-bool CheckVitalsRange(const char* vitalsName, float readingValue, float minlimit, float maxlimit){
+bool CheckVitalsRange(const char* vitalsName, float readingValue, float minlimit, float maxlimit) {
     if (readingValue < minlimit || readingValue > maxlimit) {
         cout << vitalsName << " is Critical!!!\n";
         DisplayAlert();
@@ -36,10 +37,10 @@ bool CheckVitalsRange(const char* vitalsName, float readingValue, float minlimit
 }
 
 
-int IsVitalsOk(float temperature, float pulseRate, float spo2){
+int IsVitalsOk(float temperature, float pulseRate, float spo2) {
     bool tempOk = CheckVitalsRange("Temperature", temperature, min_temperature, max_temperature);
     bool pulseOk = CheckVitalsRange("Pulse Rate", pulseRate, min_pulse_rate, max_pulse_rate);
-    bool spo2Ok = CheckVitalsRange("Oxygen Saturation", spo2, min_spo2_level, 100); // 100 is user creted upper-bound for reference 
+    bool spo2Ok = CheckVitalsRange("Oxygen Saturation", spo2, min_spo2_level, max_spo2_level);
 
     return (tempOk && pulseOk && spo2Ok) ? 1 : 0;
 }

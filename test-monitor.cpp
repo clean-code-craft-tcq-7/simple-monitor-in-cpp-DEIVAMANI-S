@@ -1,10 +1,9 @@
 #include "gtest/gtest.h"
 #include "./monitor.h"
 
-// Override DisplayAlert to avoid sleep in tests
 void DisplayAlert()
 {
-    // Do nothing for tests
+    // Do nothing for tests - Override
 }
 
 // ----------- Tests for CheckVitalsRange ------------
