@@ -36,11 +36,19 @@ bool CheckVitalsRange(const char* vitalsName, float readingValue, float minlimit
     return true;
 }
 
+bool CheckTemperature(float readtemperature) {
+    return !CheckVitalsRange("Temperature", readtemperature, min_temperature, max_temperature);
+}
+bool CheckPulse(float readpulse) {
+    return !CheckVitalsRange("Pulse Rate", readpulse, min_pulse_rate, max_pulse_rate);
+}
+bool CheckSpO2(float readspo2) {
+    return !CheckVitalsRange("Oxygen Saturation", readspo2, min_spo2_level, max_spo2_level);
+}
 
 int IsVitalsOk(float temperature, float pulseRate, float spo2) {
-    bool tempOk = CheckVitalsRange("Temperature", temperature, min_temperature, max_temperature);
-    bool pulseOk = CheckVitalsRange("Pulse Rate", pulseRate, min_pulse_rate, max_pulse_rate);
-    bool spo2Ok = CheckVitalsRange("Oxygen Saturation", spo2, min_spo2_level, max_spo2_level);
-
-    return (tempOk && pulseOk && spo2Ok) ? 1 : 0;
+    if (!CheckTemperature(temperature)) return 0;
+    if (!CheckPulse(pulseRate))       return 0;
+    if (!CheckSpO2(spo2))        return 0;
+    return 1;
 }
