@@ -8,16 +8,17 @@ void DisplayAlert()
 
 // ----------- Tests for CheckVitalsRange ------------
 
+
 TEST(CheckVitalsRangeTest, ReturnsTrueForValidReading) {
-    EXPECT_TRUE(CheckVitalsRange("Temperature", 98.6, min_temperature, max_temperature));
+    EXPECT_TRUE(CheckVitalsRange("Temperature", 98.6, 95.0, 102.0));
 }
 
 TEST(CheckVitalsRangeTest, ReturnsFalseForLowReading) {
-    EXPECT_FALSE(CheckVitalsRange("Temperature", 90.0, min_temperature, max_temperature));
+    EXPECT_FALSE(CheckVitalsRange("Temperature", 90.0, 95.0, 102.0));
 }
 
 TEST(CheckVitalsRangeTest, ReturnsFalseForHighReading) {
-    EXPECT_FALSE(CheckVitalsRange("Temperature", 105.0, min_temperature, max_temperature));
+    EXPECT_FALSE(CheckVitalsRange("Temperature", 105.0, 95.0, 102.0));
 }
 
 // ----------- Tests for IsVitalsOk ------------
