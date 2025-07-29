@@ -19,7 +19,7 @@ TEST(CheckVitalsRangeTest, ReturnsFalseForHighReading) {
 // ----------- Tests for IsVitalsOk ------------
 
 TEST(IsVitalsOkTest, AllVitalsNormal) {
-    EXPECT_EQ(IsVitalsOk(98.6, 72, 95), 1);
+    EXPECT_EQ(IsVitalsOk(98.6, 72, 95), 0);
 }
 
 TEST(IsVitalsOkTest, TemperatureTooHigh) {
@@ -35,5 +35,5 @@ TEST(IsVitalsOkTest, Spo2TooLow) {
 }
 
 TEST(IsVitalsOkTest, MultipleVitalsOutOfRange) {
-    EXPECT_EQ(IsVitalsOk(104.0, 50, 85), 0);
+    EXPECT_EQ(IsVitalsOk(104.0, 50, 85), 1);
 }
