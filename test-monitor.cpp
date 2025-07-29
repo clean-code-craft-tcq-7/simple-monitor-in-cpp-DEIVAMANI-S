@@ -1,11 +1,6 @@
 #include "gtest/gtest.h"
 #include "./monitor.h"
 
-void DisplayAlert()
-{
-    // Do nothing for tests - Override
-}
-
 // ----------- Tests for CheckVitalsRange ------------
 
 
