@@ -3,6 +3,7 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <string>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
 

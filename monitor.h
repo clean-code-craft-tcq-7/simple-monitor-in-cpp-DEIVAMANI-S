@@ -1,6 +1,6 @@
 #pragma once
 
-void displayAlert(std::string message);
+void displayAlert();
 int isTemperatureOk(float temperature);
 int isPulseRateOk(float pulseRate);
 int isSpo2Ok(float spo2);
