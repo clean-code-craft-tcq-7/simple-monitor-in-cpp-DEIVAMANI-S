@@ -26,4 +26,4 @@ TEST(IsVitalsOkTest, Spo2TooLow) {
 
 TEST(IsVitalsOkTest, MultipleVitalsOutOfRange) {
     EXPECT_EQ(isvitalsOk(104.0, 50, 85), 0);
-}
+}"\n"
