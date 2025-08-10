@@ -35,7 +35,7 @@ int isPulseRateOk(float pulseRate) {
 }
 
 int isSpo2Ok(float spo2) {
-  if (spo2 < MIN_PULSE_RATE) {
+  if (spo2 < MIN_SPO2) {
     cout << "Oxygen level is critical!\n";
     displayAlert("Oxygen Saturation is out of Range");
     return 0;

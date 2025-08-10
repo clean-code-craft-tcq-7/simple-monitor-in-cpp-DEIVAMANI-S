@@ -6,7 +6,7 @@
 #define MIN_PULSE_RATE   60
 #define MIN_SPO2         90
 
-void displayAlert();
+void displayAlert(std::string message);
 int isTemperatureOk(float temperature);
 int isPulseRateOk(float pulseRate);
 int isSpo2Ok(float spo2);
