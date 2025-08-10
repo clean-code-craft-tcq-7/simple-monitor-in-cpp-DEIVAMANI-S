@@ -17,7 +17,7 @@ void displayAlert(std::string message) {
 }
 
 int isTemperatureOk(float temperature) {
-  if (temperature > 102 || temperature < 95) {
+  if (temperature > MAX_TEMPERATURE || temperature < MIN_TEMPERATURE) {
     cout << "Temperature is critical!\n";
     displayAlert("Temperature is out of Range");
     return 0;
@@ -26,7 +26,7 @@ int isTemperatureOk(float temperature) {
 }
 
 int isPulseRateOk(float pulseRate) {
-  if (pulseRate < 60 || pulseRate > 100) {
+  if (pulseRate < MIN_PULSE_RATE || pulseRate > MAX_PULSE_RATE) {
     cout << "Pulse Rate is critical!\n";
     displayAlert("Pulse Rate is out of Range");
     return 0;
@@ -35,7 +35,7 @@ int isPulseRateOk(float pulseRate) {
 }
 
 int isSpo2Ok(float spo2) {
-  if (spo2 < 90) {
+  if (spo2 < MIN_PULSE_RATE) {
     cout << "Oxygen level is critical!\n";
     displayAlert("Oxygen Saturation is out of Range");
     return 0;

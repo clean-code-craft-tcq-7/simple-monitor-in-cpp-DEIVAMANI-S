@@ -1,5 +1,11 @@
 #pragma once
 
+#define MAX_TEMPERATURE  102
+#define MIN_TEMPERATURE  95
+#define MAX_PULSE_RATE   100
+#define MIN_PULSE_RATE   60
+#define MIN_SPO2         90
+
 void displayAlert();
 int isTemperatureOk(float temperature);
 int isPulseRateOk(float pulseRate);
