@@ -19,8 +19,6 @@ TEST(Monitor, NotOkWhenAnyVitalIsOffRange) {
 }
 
 // ----------- Tests for IsVitalsOk ------------
-int isvitalsOk(float temperature, float pulseRate, float spo2)
-
 TEST(IsVitalsOkTest, AllVitalsNormal) {
     EXPECT_EQ(isvitalsOk(NORMAL_TEMP, NORMAL_PULSE, NORMAL_SPO2), 1);
 }
