@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 //Temperature
 #define MAX_TEMPERATURE  102
 #define MIN_TEMPERATURE  95
