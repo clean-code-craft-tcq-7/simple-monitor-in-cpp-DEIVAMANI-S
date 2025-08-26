@@ -6,43 +6,48 @@
 #include <string>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
+// Language variable
+std::string LANGUAGE = "EN";  // Options: "EN", "DE"
 
 void displayAlert(const std::string& message) {
+    cout << message << "\n";
     for (int i = 0; i < 6; i++) {
       cout << "\r* " << flush;
       sleep_for(seconds(1));
       cout << "\r *" << flush;
       sleep_for(seconds(1));
     }
+    cout << "\n";
 }
 
-int isTemperatureOk(float temperature) {
-  if (temperature > MAX_TEMPERATURE || temperature < MIN_TEMPERATURE) {
-    cout << "Temperature is critical!\n";
-    displayAlert("Temperature is out of Range");
-    return 0;
-  }
-  return 1;
+bool isVitalsOk(float value, const VitalsRange& range)  {
+
+ if(value < range.lower_limit || value > range.upper_limit) {
+        if (LANGUAGE == "DE")
+            cout << range.name_de << " ist kritisch!\n";
+        else
+            cout << range.name_en << " is critical!\n";
+        displayAlert(range.name_en + " out of range");
+        return false;
+ }
+ return true;
 }
 
-int isPulseRateOk(float pulseRate) {
-  if (pulseRate < MIN_PULSE_RATE || pulseRate > MAX_PULSE_RATE) {
-    cout << "Pulse Rate is critical!\n";
-    displayAlert("Pulse Rate is out of Range");
-    return 0;
-  }
-  return 1;
-}
+bool areAllVitalsOk(float temperature, float pulseRate, float spo2,
+                    float bloodSugar, float bloodPressure, float respiratoryRate) {
+    VitalsRange vitals[] = {
+        {MIN_TEMPERATURE, MAX_TEMPERATURE, "Temperature", "Temperatur"},
+        {MIN_PULSE_RATE, MAX_PULSE_RATE, "Pulse Rate", "Pulsrate"},
+        {MIN_SPO2, MAX_SPO2, "Oxygen Saturation", "Sauerstoffsättigung"}, // only min matters
+        {LOWER_LIMIT_BLOOD_SUGAR, UPPER_LIMIT_BLOOD_SUGAR, "Blood Sugar", "Blutzucker"},
+        {LOWER_LIMIT_BLOOD_PRESSURE, UPPER_LIMIT_BLOOD_PRESSURE, "Blood Pressure", "Blutdruck"},
+        {LOWER_LIMIT_RESPIRATION_RATE, UPPER_LIMIT_RESPIRATION_RATE, "Respiratory Rate", "Atemfrequenz"}
+    };
+    float values[] = {temperature, pulseRate, spo2, bloodSugar, bloodPressure, respiratoryRate};
 
-int isSpo2Ok(float spo2) {
-  if (spo2 < MIN_SPO2) {
-    cout << "Oxygen level is critical!\n";
-    displayAlert("Oxygen Saturation is out of Range");
-    return 0;
-  }
-  return 1;
-}
-
-int isvitalsOk(float temperature, float pulseRate, float spo2) {
-  return isTemperatureOk(temperature) && isPulseRateOk(pulseRate) && isSpo2Ok(spo2);
+    for (int i = 0; i < 6; i++) {
+        if (!isVitalsOk(values[i], vitals[i]))
+            return false;
+    }
+    return true;
 }

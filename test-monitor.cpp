@@ -1,36 +1,37 @@
 #include <gtest/gtest.h>
 #include "./monitor.h"
 
-// Define constants for normal and abnormal values
-constexpr float NORMAL_TEMP = 98.1f;
-constexpr float HIGH_TEMP   = 104.0f;
-constexpr float LOW_TEMP    = 95.0f;
+// Normal values
+constexpr float NORMAL_TEMP   = 98.0f;
+constexpr float NORMAL_PULSE  = 72;
+constexpr float NORMAL_SPO2   = 95;
+constexpr float NORMAL_SUGAR  = 90;
+constexpr float NORMAL_BP     = 120;
+constexpr float NORMAL_RESP   = 16;
 
-constexpr int NORMAL_PULSE  = 72;
-constexpr int HIGH_PULSE    = 102;
-constexpr int LOW_PULSE     = 50;
-
-constexpr int NORMAL_SPO2   = 95;
-constexpr int LOW_SPO2      = 70;
-
-TEST(Monitor, NotOkWhenAnyVitalIsOffRange) {
-  ASSERT_FALSE(isvitalsOk(HIGH_TEMP, HIGH_PULSE, LOW_SPO2));
-  ASSERT_TRUE(isvitalsOk(NORMAL_TEMP, NORMAL_PULSE, NORMAL_SPO2));
+TEST(VitalsTest, AllVitalsNormal) {
+    EXPECT_TRUE(areAllVitalsOk(NORMAL_TEMP, NORMAL_PULSE, NORMAL_SPO2,
+                               NORMAL_SUGAR, NORMAL_BP, NORMAL_RESP));
 }
 
-// ----------- Tests for IsVitalsOk ------------
-TEST(IsVitalsOkTest, AllVitalsNormal) {
-    EXPECT_EQ(isvitalsOk(NORMAL_TEMP, NORMAL_PULSE, NORMAL_SPO2), 1);
+TEST(VitalsTest, BloodSugarTooLow) {
+    EXPECT_FALSE(areAllVitalsOk(NORMAL_TEMP, NORMAL_PULSE, NORMAL_SPO2,
+                                50, NORMAL_BP, NORMAL_RESP));
 }
 
-TEST(IsVitalsOkTest, TemperatureTooHigh) {
-    EXPECT_EQ(isvitalsOk(HIGH_TEMP, NORMAL_PULSE, NORMAL_SPO2), 0);
+TEST(VitalsTest, BloodPressureTooHigh) {
+    EXPECT_FALSE(areAllVitalsOk(NORMAL_TEMP, NORMAL_PULSE, NORMAL_SPO2,
+                                NORMAL_SUGAR, 180, NORMAL_RESP));
 }
 
-TEST(IsVitalsOkTest, PulseTooLow) {
-    EXPECT_EQ(isvitalsOk(NORMAL_TEMP, HIGH_PULSE, NORMAL_SPO2), 0);
+TEST(VitalsTest, RespiratoryTooLow) {
+    EXPECT_FALSE(areAllVitalsOk(NORMAL_TEMP, NORMAL_PULSE, NORMAL_SPO2,
+                                NORMAL_SUGAR, NORMAL_BP, 8));
 }
 
-TEST(IsVitalsOkTest, Spo2TooLow) {
-    EXPECT_EQ(isvitalsOk(NORMAL_TEMP, NORMAL_PULSE, LOW_SPO2), 0);
+TEST(VitalsTest, LanguageSwitchGerman) {
+    LANGUAGE = "DE";
+    EXPECT_FALSE(areAllVitalsOk(105, NORMAL_PULSE, NORMAL_SPO2,
+                                NORMAL_SUGAR, NORMAL_BP, NORMAL_RESP));
+    LANGUAGE = "EN"; // reset
 }
