@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 
-// Default language: English
-std::string LANGUAGE = "EN";  // Change to "DE" for German
+// Global language setting
+extern std::string LANGUAGE;
 
 //Temperature
 #define MAX_TEMPERATURE  102

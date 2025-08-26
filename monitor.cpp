@@ -6,6 +6,9 @@
 #include <string>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
+// Default language: English
+std::string LANGUAGE = "EN";  // Change to "DE" for German
+
 void displayAlert(const std::string& message) {
     cout << message << "\n";
     for (int i = 0; i < 6; i++) {
