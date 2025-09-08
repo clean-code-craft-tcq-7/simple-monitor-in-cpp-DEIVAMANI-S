@@ -30,10 +30,10 @@ TEST(VitalsTest, RespiratoryTooLow) {
 }
 
 TEST(VitalsTest, LanguageSwitchGerman) {
-    LANGUAGE = "DE";
+    LANGUAGE = Language::DE;
     EXPECT_FALSE(areAllVitalsOk(105.0f, NORMAL_PULSE, NORMAL_SPO2,
                                 NORMAL_SUGAR, NORMAL_BP, NORMAL_RESP));
-    LANGUAGE = "EN";  // reset
+    LANGUAGE = Language::EN;  // reset
 }
 
 // ---------------- Additional branch coverage ----------------
