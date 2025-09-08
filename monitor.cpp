@@ -1,5 +1,5 @@
 #include "./monitor.h"
-#include <cassert.h>
+#include <assert.h>
 #include <thread>
 #include <chrono>
 #include <iostream>
@@ -21,14 +21,24 @@ void displayAlert(const std::string& message) {
 }
 
 bool isVitalsOk(float value, const VitalsRange& range) {
-  if (value >= range.lower_limit && value <= range.upper_limit) {
-    return true;
+  // Single condition for range check
+  bool is_ok = (value >= range.lower_limit && value <= range.upper_limit);
+  
+  // Language configuration to avoid branching
+  struct LangConfig {
+    std::string name;
+    std::string message;
+  };
+  LangConfig config = (LANGUAGE == Language::DE) 
+    ? LangConfig{range.name_de, " ist kritisch!\n"} 
+    : LangConfig{range.name_en, " is critical!\n"};
+  
+  if (!is_ok) {
+    std::cout << config.name << config.message;
+    displayAlert(config.name + " out of range");
   }
-
-  std::string name = (LANGUAGE == Language::DE) ? range.name_de : range.name_en;
-  cout << name << ((LANGUAGE == Language::DE) ? " ist kritisch!\n" : " is critical!\n");
-  displayAlert(name + " out of range");
-  return false;
+  
+  return is_ok;
 }
 
 bool areAllVitalsOk(float temperature, float pulseRate, float spo2,
