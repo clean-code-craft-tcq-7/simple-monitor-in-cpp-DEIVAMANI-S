@@ -4,30 +4,35 @@
 // Global language setting
 extern std::string LANGUAGE;
 
-//Temperature
+// Temperature
 #define MAX_TEMPERATURE  102
 #define MIN_TEMPERATURE  95
-//Pulse rate
+
+// Pulse rate
 #define MAX_PULSE_RATE   100
 #define MIN_PULSE_RATE   60
-//Blood Oxygen limits
+
+// Blood Oxygen limits
 #define MIN_SPO2         90
 #define MAX_SPO2         200
-//Blood Sugar limits
+
+// Blood Sugar limits
 #define LOWER_LIMIT_BLOOD_SUGAR     70
 #define UPPER_LIMIT_BLOOD_SUGAR     110
-//Blood Pressure limits
+
+// Blood Pressure limits
 #define LOWER_LIMIT_BLOOD_PRESSURE      90
 #define UPPER_LIMIT_BLOOD_PRESSURE      150
-//Respiratory rate limits
-#define LOWER_LIMIT_RESPIRATION_RATE    12
-#define UPPER_LIMIT_RESPIRATION_RATE   20
 
-struct VitalsRange{
+// Respiratory rate limits
+#define LOWER_LIMIT_RESPIRATION_RATE    12
+#define UPPER_LIMIT_RESPIRATION_RATE    20
+
+struct VitalsRange {
     float lower_limit;
     float upper_limit;
     std::string name_en;
-    std::string name_de;//German Language
+    std::string name_de;  // German language
 };
 
 void displayAlert();

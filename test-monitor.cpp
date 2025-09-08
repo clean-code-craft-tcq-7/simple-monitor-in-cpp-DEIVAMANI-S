@@ -33,5 +33,5 @@ TEST(VitalsTest, LanguageSwitchGerman) {
     LANGUAGE = "DE";
     EXPECT_FALSE(areAllVitalsOk(105, NORMAL_PULSE, NORMAL_SPO2,
                                 NORMAL_SUGAR, NORMAL_BP, NORMAL_RESP));
-    LANGUAGE = "EN"; // reset
+    LANGUAGE = "EN";  // reset
 }
