@@ -1,5 +1,7 @@
 #pragma once
+#ifdef __cplusplus
 #include <string>
+#endif
 
 // Global language setting (enum instead of global string)
 enum class Language {
@@ -32,6 +34,7 @@ constexpr float UPPER_LIMIT_BLOOD_PRESSURE = 150.0f;
 constexpr float LOWER_LIMIT_RESPIRATION_RATE = 12.0f;
 constexpr float UPPER_LIMIT_RESPIRATION_RATE = 20.0f;
 
+#ifdef __cplusplus
 struct VitalsRange {
   float lower_limit;
   float upper_limit;
@@ -40,6 +43,8 @@ struct VitalsRange {
 };
 
 void displayAlert(const std::string& message);
+#endif
+
 bool isVitalsOk(float value, const VitalsRange& range);
 bool areAllVitalsOk(float temperature, float pulseRate, float spo2,
                     float bloodSugar, float bloodPressure,
