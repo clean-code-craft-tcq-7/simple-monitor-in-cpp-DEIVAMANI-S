@@ -21,8 +21,8 @@ void displayAlert(const std::string& message) {
 }
 
 bool isVitalsOk(float value, const VitalsRange& range) {
-  std::string names[] = {range.name_en, range.name_de};
-  std::string messages[] = {" is critical!\n", " ist kritisch!\n"};
+  const std::string names[] = {range.name_en, range.name_de};
+  const std::string messages[] = {" is critical!\n", " ist kritisch!\n"};
   int lang_index = static_cast<int>(LANGUAGE);
   std::string name = names[lang_index];
   std::string message = messages[lang_index];
@@ -43,7 +43,7 @@ bool isVitalsOk(float value, const VitalsRange& range) {
 bool areAllVitalsOk(float temperature, float pulseRate, float spo2,
                     float bloodSugar, float bloodPressure,
                     float respiratoryRate) {
-  VitalsRange vitals[] = {
+  const VitalsRange vitals[] = {
       {MIN_TEMPERATURE, MAX_TEMPERATURE, "Temperature", "Temperatur"},
       {MIN_PULSE_RATE, MAX_PULSE_RATE, "Pulse Rate", "Pulsrate"},
       {MIN_SPO2, MAX_SPO2, "Oxygen Saturation", "Sauerstoffsättigung"},
@@ -53,7 +53,7 @@ bool areAllVitalsOk(float temperature, float pulseRate, float spo2,
        "Blood Pressure", "Blutdruck"},
       {LOWER_LIMIT_RESPIRATION_RATE, UPPER_LIMIT_RESPIRATION_RATE,
        "Respiratory Rate", "Atemfrequenz"}};
-  float values[] = {temperature, pulseRate, spo2,
+  const float values[] = {temperature, pulseRate, spo2,
                     bloodSugar, bloodPressure, respiratoryRate};
   for (size_t i = 0; i < std::size(values); i++) {
     if (!isVitalsOk(values[i], vitals[i])) {
