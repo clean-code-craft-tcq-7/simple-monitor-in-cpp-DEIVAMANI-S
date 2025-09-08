@@ -1,13 +1,13 @@
 #include "./monitor.h"
-#include <assert.h>
+#include <cassert.h>
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include <string>
+
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
 // Default language: English
-constexpr const char* LANGUAGE = "EN";  // Change to "DE" for German
+Language LANGUAGE = Language::EN;
 
 void displayAlert(const std::string& message) {
   cout << message << "\n";
@@ -21,16 +21,14 @@ void displayAlert(const std::string& message) {
 }
 
 bool isVitalsOk(float value, const VitalsRange& range) {
-  if (value < range.lower_limit || value > range.upper_limit) {
-    if (std::string(LANGUAGE) == "DE") {
-      cout << range.name_de << " ist kritisch!\n";
-    } else {
-      cout << range.name_en << " is critical!\n";
-    }
-    displayAlert(range.name_en + " out of range");
-    return false;
+  if (value >= range.lower_limit && value <= range.upper_limit) {
+    return true;
   }
-  return true;
+
+  std::string name = (LANGUAGE == Language::DE) ? range.name_de : range.name_en;
+  cout << name << ((LANGUAGE == Language::DE) ? " ist kritisch!\n" : " is critical!\n");
+  displayAlert(name + " out of range");
+  return false;
 }
 
 bool areAllVitalsOk(float temperature, float pulseRate, float spo2,

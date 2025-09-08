@@ -16,22 +16,47 @@ TEST(VitalsTest, AllVitalsNormal) {
 
 TEST(VitalsTest, BloodSugarTooLow) {
     EXPECT_FALSE(areAllVitalsOk(NORMAL_TEMP, NORMAL_PULSE, NORMAL_SPO2,
-                                50, NORMAL_BP, NORMAL_RESP));
+                                50.0f, NORMAL_BP, NORMAL_RESP));
 }
 
 TEST(VitalsTest, BloodPressureTooHigh) {
     EXPECT_FALSE(areAllVitalsOk(NORMAL_TEMP, NORMAL_PULSE, NORMAL_SPO2,
-                                NORMAL_SUGAR, 180, NORMAL_RESP));
+                                NORMAL_SUGAR, 180.0f, NORMAL_RESP));
 }
 
 TEST(VitalsTest, RespiratoryTooLow) {
     EXPECT_FALSE(areAllVitalsOk(NORMAL_TEMP, NORMAL_PULSE, NORMAL_SPO2,
-                                NORMAL_SUGAR, NORMAL_BP, 8));
+                                NORMAL_SUGAR, NORMAL_BP, 8.0f));
 }
 
 TEST(VitalsTest, LanguageSwitchGerman) {
     LANGUAGE = "DE";
-    EXPECT_FALSE(areAllVitalsOk(105, NORMAL_PULSE, NORMAL_SPO2,
+    EXPECT_FALSE(areAllVitalsOk(105.0f, NORMAL_PULSE, NORMAL_SPO2,
                                 NORMAL_SUGAR, NORMAL_BP, NORMAL_RESP));
     LANGUAGE = "EN";  // reset
+}
+
+// ---------------- Additional branch coverage ----------------
+
+TEST(VitalsBranchTest, IsVitalsOkWithinRange) {
+  VitalsRange tempRange{95, 102, "Temperature", "Temperatur"};
+  EXPECT_TRUE(isVitalsOk(98, tempRange));  // inside range
+}
+
+TEST(VitalsBranchTest, IsVitalsOkOutOfRangeEnglish) {
+  LANGUAGE = Language::EN;
+  VitalsRange pulseRange{60, 100, "Pulse Rate", "Pulsrate"};
+  EXPECT_FALSE(isVitalsOk(120, pulseRange));  // outside range
+}
+
+TEST(VitalsBranchTest, IsVitalsOkOutOfRangeGerman) {
+  LANGUAGE = Language::DE;
+  VitalsRange pulseRange{60, 100, "Pulse Rate", "Pulsrate"};
+  EXPECT_FALSE(isVitalsOk(40, pulseRange));  // outside range
+  LANGUAGE = Language::EN;  // reset
+}
+
+TEST(VitalsBranchTest, AreAllVitalsOkOneBad) {
+  EXPECT_FALSE(areAllVitalsOk(110.0f, NORMAL_PULSE, NORMAL_SPO2,
+                              NORMAL_SUGAR, NORMAL_BP, NORMAL_RESP));  // temp too high
 }
