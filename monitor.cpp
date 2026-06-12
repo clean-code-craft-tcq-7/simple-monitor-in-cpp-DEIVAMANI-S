@@ -6,7 +6,7 @@
 #include <string>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
-// Default language: English
+// Default language: English --> yes
 Language LANGUAGE = Language::EN;
 
 void displayAlert(const std::string& message) {
@@ -15,7 +15,7 @@ void displayAlert(const std::string& message) {
     cout << "\r* " << flush;
     sleep_for(seconds(1));
     cout << "\r *" << flush;
-    sleep_for(seconds(1));
+    sleep_for(seconds(10));
   }
   cout << "\n";
 }
